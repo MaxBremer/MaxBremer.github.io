@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Code test</title>
+	<script type="text/javascript" src="cfginterpreter.js" async></script>
+</head>
+<body>
+<h2>CFG Creator.</h2>
+<h3>By Max Bremer yay</h3>
+<p>A few things to note, all of which are demonstrated in the demo below:
+<ul> 
+	<li>*X instantiates new symbol X at start of line, but references existing symbol X if used mid-line.</li>
+	<li>All possibilities for X come after the -</li>
+	<li>X will choose randomly from its possibilities, the entries divided by |, when its written.</li>
+	<li>A symbols possibilities can either be a) a reference to another symbol directly or b) a terminal.</li>
+	<li>Terminals can contain further symbol references inside angle brackets.</li>
+	<li>Symbol references can be "modified" by adding a period and modifier after the reference inside the angle brackets.</li>
+	<li>Current modifiers: .a will correctly prepend a/an depending on reference, .cap will capitalize the first letter, .s will pluralize nouns, .ff will give the symbol a fifty-fifty chance of being included at all, .uncap uncapitalizes the first letter (for some weird cases).</li>
+	<li>Modifiers can be chained together and will operate as expected: X.a.cap will write symbol X with a/an prepended and capitalized.</li>
+	<li>DONT CREATE INFINITE LOOPS OF SYMBOLS. You can. Don't do it.</li>
+	<li>There <b>must</b> be a symbol with the name "S". This will serve as the start symbol for processing, and writing starts at symbol S. </li>
+	<li>All used characters (|"-*&lt;) are forbidden from symbol names, though only " is forbidden from terminals for the obvious reason.</li>
+</ul></p>
+<textarea id="cfg">*S - "I went to &lt;location> with &lt;Max.a> and &lt;someoneElse.a>." | "I saw &lt;Max.a> at &lt;location> &lt;past_time>." | "&lt;someoneElse.a.cap> was &lt;action> at &lt;location> &lt;past_time>.";
+*Max - "cool guy" | "awesome dude" | "lorge man" | "Max";
+*someoneElse - "lame-o" | "bitey gremlin" | "upset treant" | "former president" | *animal;
+*animal - "alligator" | "unicorn" | "zebra" | "dog" | "eagle";
+*location - "the beach" | "the library" | "Minnesota" | "the city" | "a skate park";
+*past_time - "yesterday" | "last week" | "earlier" | "two years ago";
+*action - "skating" | "dancin" | "giving a speech" | "fighting a goblin" | "climbing a building" | "eating &lt;food.a>";
+*food - "apple" | "donut" | "spinach leaf" | "steak";
+
+</textarea><br>
+<button onclick="readInp()">WRITE</button>
+<button onclick="townGen()">Enter City Generator</button>
+<button onclick="clearOutput()">Clear Output list</button>
+<h2>OUTPUT</h2>
+<ul id="output"></ul>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
