@@ -3,15 +3,25 @@ body {
   color: #666666;
   font-weight: 400;
   font-size: 1rem;
+  text-align: center;
+  /*background-color: #f5e9e2;*/
+  background-image: linear-gradient(#f5e9e2, #a0948d);
+/*  background-repeat: no-repeat;*/
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 40px;
+  font-family: sans-serif;
 }
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
 }
-
 a:hover {
   text-decoration: none;
+}
+ul{
+  text-align: left;
 }
 h1,
 h2,
@@ -24,5 +34,33 @@ h5,
 .h4,
 .h5 {
   font-family: "Arbutus Slab", serif;
-  color: #000;
+  color: #773344;
+}
+p{
+  margin-left: 20%;
+  margin-right: 20%;
+  /*border-bottom: 5px dashed rgba(0.6,0.6,0.6,0.4);*/
+}
+.wrapper{
+  margin-left: 10%;
+  margin-right: 10%;
+  border-left: 2px dashed rgba(0.6,0.6,0.6,0.4);
+  border-right: 2px dashed rgba(0.6,0.6,0.6,0.4);
+  height: 100%;
+}
+.button{
+  background-color: #eb3f3f;
+  font-family:opensans;
+  text-align: center;
+  font-size:25px;
+  color:white;
+  border:none;
+  cursor:pointer;
+
+  /*position: fixed;*/
+  margin-bottom: 20px;
+  bottom:10%;
+  width:50%;
+  left:25%;
+  padding:10px 0px;
 }
