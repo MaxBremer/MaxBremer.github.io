@@ -36,9 +36,8 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Arbutus Slab", serif;
+  font-family: "Arbutus Slab", sans-serif;
   color: #773344;
-  text-shadow: 1px 1px #444444;
 }
 p{
   margin-left: 10%;
