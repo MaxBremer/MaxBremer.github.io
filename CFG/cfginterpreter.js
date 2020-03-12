@@ -8,11 +8,6 @@ function readInp(){
 	//console.log(sentence);
 	document.getElementById("output").innerHTML += "<li>" + sentence + "</li>";
 }
-class modification{
-	constructor(modType){
-
-	}
-}
 class SymbolSet{
 	constructor(inpSymList){
 		this.mods = {

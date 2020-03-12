@@ -9,16 +9,16 @@
 </head>
 <body>
 <div class="wrapper">
-<h2>CFG Creator.</h2>
+<h2>CFG Interpreter.</h2>
 <h3>Max Bremer</h3>
-<p>This is an interpreter for Context-Free Grammars, essentially basic procedural text generation rules. A few things to note, all of which are demonstrated in the demo below:
+<p>This is an interpreter for Context-Free Grammars, which are essentially basic procedural text generation rules. A few things to note, all of which are demonstrated in the demo below:
 <ul> 
-	<li>*X instantiates new symbol X at start of line, but references existing symbol X if used mid-line.</li>
-	<li>All possibilities for X come after the -</li>
-	<li>X will choose randomly from its possibilities, the entries divided by |, when its written.</li>
-	<li>A symbols possibilities can either be a) a reference to another symbol directly or b) a terminal.</li>
-	<li>Terminals can contain further symbol references inside angle brackets.</li>
-	<li>Symbol references can be "modified" by adding a period and modifier after the reference inside the angle brackets.</li>
+	<li>*X instantiates new symbol X if used at start of line, but references existing symbol X if used mid-line.</li>
+	<li>All possibilities for X come after the "-"</li>
+	<li>X will choose with uniform randomness between its possibilities, the entries divided by |, when it's written.</li>
+	<li>A given "possibility" for a symbol can be <ul><li> A reference to another symbol directly, in which case that symbol will be written as defined.</li> or <li> A "terminal", or a fully defined string. </li></ul></li>
+	<li>Terminals can contain further symbol references inside angle brackets. If a given terminal does this, it will write out those symbols as per their definition at the point where said symbol was referenced.</li>
+	<li>Symbol references can be "modified" by adding a period and modifier after the reference inside the angle brackets. There currently exist only a limited set of modifiers, as they each have to be extensively coded by hand to cover edge cases in English grammar.</li>
 	<li>Current modifiers: .a will correctly prepend a/an depending on reference, .cap will capitalize the first letter, .s will pluralize nouns, .ff will give the symbol a fifty-fifty chance of being included at all, .uncap uncapitalizes the first letter (for some weird cases).</li>
 	<li>Modifiers can be chained together and will operate as expected: X.a.cap will write symbol X with a/an prepended and capitalized.</li>
 	<li>DONT CREATE INFINITE LOOPS OF SYMBOLS. You can. Don't do it.</li>

@@ -19,7 +19,8 @@ for(var i=0;i<count;i++){
     	max = Math.max(lines[j].length, max);
     }
     textareas[i].style.width = "";
-    textareas[i].style.width = (max * 8) + "px";
+    console.log(window.innerWidth);
+    textareas[i].style.width = Math.min((max * 8), window.innerWidth) + "px";
 }
 
 
