@@ -1,4 +1,6 @@
 //FORBIDDEN CHARS FOR SYMBOL NAMES: -.<>
+
+//MAIN function, runs the whole process, called when "WRITE" button is pressed.
 function readInp(){
 	var inp = document.getElementById("cfg").value;
 	var without = interpret(inp);
@@ -8,20 +10,37 @@ function readInp(){
 	//console.log(sentence);
 	document.getElementById("output").innerHTML += "<li>" + sentence + "</li>";
 }
-class SymbolSet{
-	constructor(inpSymList){
-		this.mods = {
-			CAPITALIZE: "cap",
-			PLURALIZE: "plur"
-		}
-		if(findSymList(inpSymList, "S") == null){
-			throw "ERROR: Symbol list does not contain start symbol 'S'."
-		}
-		this.syms = [];
-		for (var i = 0; i < inpSymList.length; i++) {
-			this.syms.push(inpSymList[i]);
+
+function weightedChoice(options, chances){
+	if(!(options.length == chances.length)){
+		throw "ERROR: OptLength /= ChanceLength"
+	}
+	var summed = 0;
+	for(var i in chances){
+		summed += i;
+	}
+
+	var num = Math.floor(Math.random() * summed);
+	var tSum = 0
+	for(var j = 0; j < options.length; j++){
+		tSum += chances[j];
+		if(num <= tSum){
+			return options[j]
 		}
 	}
+
+
+}
+//The class to hold the set of all symbols for reference.
+class SymbolSet{
+	//Constructor takes a symbol list. Currently, it needs to be assembled beforehand.
+	constructor(inpSymList){
+		this.syms = inpSymList
+		if(this.findSym("S") == null){
+			throw "ERROR: Symbol list does not contain start symbol 'S'."
+		}
+	}
+	//A method built for print/debugging.
 	toString(){
 		var returner = "";
 		for (var i = 0; i < this.syms.length; i++) {
@@ -29,8 +48,16 @@ class SymbolSet{
 		}
 		return returner;
 	}
+	//The following are a pair of pseudo-recursive methods that reference both themselves and
+	//each other in order to fully write out a given symbol that's inpupt.
+	//The whole process is started by a call to writeSymbol() that passes in *S
 	writeSymbol(s){
-		var choice = s.opts[Math.floor(Math.random() * s.opts.length)];
+		var choice = "undef";
+		if (!s.weightOpts) {
+			choice = s.opts[Math.floor(Math.random() * s.opts.length)];
+		}else{
+			choice = weightedChoice(s.opts, s.weightList);
+		}
 		if(choice instanceof Symbol){
 			return this.writeSymbol(choice);
 		}else if(typeof choice == "string"){
@@ -42,28 +69,24 @@ class SymbolSet{
 	writeStr(choice){
 		var returner = "";
 		var curString = "";
-		var modString = ""
+		var modString = "";
+		//The current full set of possible modes for the following state machine.
 		const mode = {
 			TEXT: 'text',
 			REFERENCE: 'ref',
 			MODIFIER: 'mod'
 		}
 		var curMode = mode.TEXT;
+		//One of two token-by-token state machines, the other being the one that actually interprets the raw text input.
+		//Terminals/"STRs" are stored as the raw text within the quotation marks that are originally input, as they're kind of another 
+		//"mini-language" in and of themselves.
 		for (var i = 0; i < choice.length; i++) {
 			var c = choice.charAt(i);
-			// if(c == '<' && !isRef){
-			// 	isRef = true;
-			// }else if(c == '>' && isRef){
-			// 	isRef = false;
-			// 	returner += this.writeSymbol(this.findSym(symRef));
-			// 	symRef = "";
-			// }else if(isRef){
-			// 	symRef += c;
-			// }else{
-			// 	returner += c;
-			// }
 			switch(curMode){
+				//This mode assumes raw text input, no processing whatsoever.
 				case mode.TEXT:
+				//Several of these inner switch statements exist purely so that I can add more options/features in the future.
+				//Such as this one.
 				switch(c){
 					case '<':
 					curMode = mode.REFERENCE;
@@ -72,6 +95,7 @@ class SymbolSet{
 					returner += c;
 				}
 				break;
+				//In this mode, we're within an inner symbol reference. Thus, we watch for it ending (">") and for a modifier-start (".").
 				case mode.REFERENCE:
 				switch(c){
 					case '>':
@@ -88,6 +112,7 @@ class SymbolSet{
 					curString += c;
 				}
 				break;
+				//Very similar to reference mode in that we're watching for reference-end OR the start of a new symbol.
 				case mode.MODIFIER:
 				switch(c){
 					case '>':
@@ -107,6 +132,8 @@ class SymbolSet{
 		}
 		return returner;
 	}
+	//A bad, inefficient way to find a symbol in our symbol list. I'll improve this later. Right now, its computational efficiency is not really a priority.
+	//TODO: a better approach to storing/referencing symbols. 
 	findSym(symStr){
 		for (var i = this.syms.length - 1; i >= 0; i--) {
 			if(this.syms[i].sym == symStr){
@@ -115,7 +142,9 @@ class SymbolSet{
 		}
 		prompt("ERROR: UNDEFINED SYMBOL " + symStr + "REFERENCED.");
 		throw "COULD NOT FIND SYMBOL " + symStr;
+		return null;
 	}
+	//The function for applying a discovered modifier to the string in question.
 	modify(str, mod){
 		var vowels = ['a', 'e', 'i', 'o', 'u', 'y']
 		switch(mod){
@@ -166,6 +195,7 @@ class SymbolSet{
 			}
 			break;
 			case "uncap":
+			//Just the opposite of the capitalization mod, make the first letter letter.
 			return str.charAt(0).toLowerCase() + str.substring(1);
 			break;
 			default:
@@ -173,10 +203,12 @@ class SymbolSet{
 		}
 	}
 }
+//A simple class to store a symbol and all relevant text to that symbol, basically just a replacement for a list.
 class Symbol{
 	constructor(){
 		this.sym = "";
 		this.opts = [];
+		this.weightOpts = false;
 	}
 	setSym(sym){
 		this.sym = sym;
@@ -184,10 +216,15 @@ class Symbol{
 	addOpt(opt){
 		this.opts.push(opt);
 	}
+	enableWeights(wL){
+		this.weightOpts = true;
+		this.weightList = wL;
+	}
 	toString(){
 		var optList = "";
 		for (var i = 0; i < this.opts.length; i++) {
 			if(this.opts[i] instanceof Symbol){
+				console.log("weirdo");
 				optList += this.opts[i].sym;
 			}else{
 				optList += this.opts[i];
@@ -197,15 +234,7 @@ class Symbol{
 		return this.sym + " - " + optList;
 	}
 }
-function findSymList(symList, s){
-	for (var i = symList.length - 1; i >= 0; i--) {
-		if(symList[i].sym == s){
-			return symList[i];
-		}
-	}
-	console.log("SYMBOL NOT FOUND");
-	return null;
-}
+//A custom whitespace removal that doesn't remove whitespace within quotation-marks.
 function customWSRemove(val){
 	var isQuote = false;
 	var output = "";
@@ -240,6 +269,7 @@ function interpret(str){
 	var curString = "";
 	var symList = [];
 	var symInd = 0;
+	//Second state machine, this one actually being the full-on interpreter. 
 	for(var i = 0; i < str.length; i++){
 		var c = str.charAt(i);
 		if (curMode == mode.TERMINAL && c != '"') {
@@ -285,8 +315,7 @@ function interpret(str){
 					if(curMode == mode.NONE){
 						throw "DOUBLE ; ERROR AT " + i;
 					}else if(curMode == mode.SYMBOL_REF){
-						var refSym = '*' + curString;
-						symList[symInd].addOpt(refSym);
+						symList[symInd].addOpt('<' + curString + '>');
 						curString = "";
 						symInd += 1;
 						curMode = mode.NONE;
@@ -301,8 +330,7 @@ function interpret(str){
 					break;
 					case '|':
 					if (curMode == mode.SYMBOL_REF) {
-						var refSym = '*' + curString;
-						symList[symInd].addOpt(refSym);
+						symList[symInd].addOpt('<' + curString + '>');
 						curString = "";
 						curMode = mode.MID_SYM;
 					}else if(curMode != mode.MID_SYM){
@@ -318,18 +346,6 @@ function interpret(str){
 					break;
 					default:
 					curString += c;
-				}
-			}
-		}
-	}
-	for (var i = 0; i < symList.length; i++) {
-		for (var j = 0; j < symList[i].opts.length; j++) {
-			if(symList[i].opts[j].charAt(0) == '*'){
-				var possibleSym = findSymList(symList, symList[i].opts[j].substring(1));
-				if(possibleSym != null){
-					symList[i].opts[j] = possibleSym;
-				}else{
-					throw "ERROR: REFERENCED SYMBOL " + symList[i].opts[j].substring(1) + " NOT FOUND.";
 				}
 			}
 		}
