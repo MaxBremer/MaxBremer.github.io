@@ -283,7 +283,7 @@ function interpret(str){
 					}else if(curMode == mode.MID_SYM){
 						curMode = mode.SYMBOL_REF;
 					}else{
-						throw "INVALID * AT " + i;
+						throw "MODE IS " + curMode + " INVALID * AT " + i;
 					}
 					break;
 					case '-':
