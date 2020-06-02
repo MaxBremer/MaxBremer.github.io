@@ -13,6 +13,8 @@
 	<p>It's pretty straightforward. It's snake. Arrow keys to control, press r to restart, press space or the button below to pause. I'll add many dumb features to this as we go.</p>
 <canvas id="game" width="400" height="400"></canvas><br>
 <button id="but" type="button" onclick="pause()">Pause</button>
+<input type="color" id="snakeColor" value="#0000ff" onchange="refresh()">
+<input type="color" id="appleColor" value="#ff0000" onchange="refresh()">
 </div>
 <script type="text/javascript" src="snake.js"></script>
 </body>

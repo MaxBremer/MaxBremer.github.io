@@ -6,6 +6,9 @@ window.onload = function(){
 		setup();
 	}
 	function setup(){
+		headCol = document.getElementById("snakeColor").value;
+		tailCol = "purple";
+		appleCol = document.getElementById("appleColor").value;
 		xvel = yvel = 0;
 		px = py = 20;
 		tileCount = 40;
@@ -22,19 +25,34 @@ window.onload = function(){
 		grad.addColorStop(1, "rgb(117, 178, 72)");
 		ctx.fillStyle = grad;
 		ctx.fillRect(0, 0, canv.width, canv.height);
-		writeSquare("red", ax, ay);
+		writeSquare(appleCol, ax, ay);
+		writeSquare(headCol, px, py);
+	}
+
+	function refresh(){
+		headCol = document.getElementById("snakeColor").value;
+		appleCol = document.getElementById("appleColor").value;
+		writeSquare(appleCol, ax, ay);
+		for(var i = 0; i < tail.length; i++){
+			writeSquare(headCol, tail[i].x, tail[i].y);
+		}
+		if(!started){
+			writeSquare(headCol, px, py);
+		}
 	}
 	
 	function game() {
 		canPush = true;
-		writeSquare("blue", px, py);
+		headCol = document.getElementById("snakeColor").value;
+		appleCol = document.getElementById("appleColor").value;
+		//writeSquare(headCol, px, py);
 		if(play && started){
 			grad = ctx.createRadialGradient(canv.width/2, canv.height/2, 40, canv.width/2, canv.height/2, 250);
 			grad.addColorStop(0, "rgb(153, 230, 0)");
 			grad.addColorStop(1, "rgb(117, 178, 72)");
 			ctx.fillStyle = grad;
 			ctx.fillRect(0, 0, canv.width, canv.height);
-			writeSquare("red", ax, ay);
+			writeSquare(appleCol, ax, ay);
 			px += xvel;
 			py += yvel;
 			if(px < 0 || px > tileCount || py < 0 || py > tileCount){
@@ -48,17 +66,24 @@ window.onload = function(){
 			while(tail.length > tailLen){
 				tail.shift();
 			}
-			tail.forEach(function tF(element){
+			index = 0
+			/*tail.forEach(function tF(element){
 				writeSquare("blue", element.x, element.y);
 				if(px == element.x && py == element.y){
 					lose();
 				}
-			});
+			});*/
+			for(var i = 0; i < tail.length; i++){
+				writeSquare(headCol, tail[i].x, tail[i].y);
+				if(px == tail[i].x && py == tail[i].y){
+					lose();
+				}
+			}
 			tail.push({x:px, y:py});
 		}
 	}
 	function lose(){
-		play = false;
+		started = false;
 		ctx.fillStyle = "red";
 		ctx.font = "36px Sans-Serif";
 		ctx.fillText("You Lose!", 10, 36);
@@ -118,11 +143,13 @@ window.onload = function(){
 		}
 	}
 	function pause(){
-		if(play){
-			play = false;
-			document.getElementById("but").innerHTML = "Play";
-		}else{
-			play = true;
-			document.getElementById("but").innerHTML = "Pause";
+		if(started){
+			if(play){
+				play = false;
+				document.getElementById("but").innerHTML = "Play";
+			}else{
+				play = true;
+				document.getElementById("but").innerHTML = "Pause";
+			}
 		}
 	}
