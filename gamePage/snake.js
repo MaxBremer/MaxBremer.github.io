@@ -6,6 +6,7 @@ window.onload = function(){
 		setup();
 	}
 	function setup(){
+		stupidMode = false;
 		headCol = document.getElementById("snakeColor").value;
 		tailCol = "purple";
 		appleCol = document.getElementById("appleColor").value;
@@ -75,7 +76,7 @@ window.onload = function(){
 			});*/
 			for(var i = 0; i < tail.length; i++){
 				writeSquare(headCol, tail[i].x, tail[i].y);
-				if(px == tail[i].x && py == tail[i].y){
+				if(px == tail[i].x && py == tail[i].y && (xvel != 0 || yvel != 0)){
 					lose();
 				}
 			}
@@ -95,49 +96,78 @@ window.onload = function(){
 	}
 	function keyPush(e){
 		if(canPush){
-			switch(e.keyCode){
-				case 37:
-					if(xvel == 0){
-						xvel = -1;
-						yvel = 0;
-						if(!started && play){
-							started = true;
+			if(!stupidMode){
+				switch(e.keyCode){
+					case 37:
+						if(xvel == 0){
+							xvel = -1;
+							yvel = 0;
+							if(!started && play){
+								started = true;
+							}
 						}
-					}
-					break;
-				case 38:
-					if(yvel==0){
-						xvel = 0;
-						yvel = -1;
-						if(!started && play){
-							started = true;
+						break;
+					case 38:
+						if(yvel==0){
+							xvel = 0;
+							yvel = -1;
+							if(!started && play){
+								started = true;
+							}
 						}
-					}
-					break;
-				case 39:
-					if(xvel == 0){
-						xvel = 1;
-						yvel = 0;
-						if(!started && play){
-							started = true;
+						break;
+					case 39:
+						if(xvel == 0){
+							xvel = 1;
+							yvel = 0;
+							if(!started && play){
+								started = true;
+							}
 						}
-					}
-					break;
-				case 40:
-					if(yvel==0){
-						xvel = 0;
-						yvel = 1;
-						if(!started && play){
-							started = true;
+						break;
+					case 40:
+						if(yvel==0){
+							xvel = 0;
+							yvel = 1;
+							if(!started && play){
+								started = true;
+							}
 						}
-					}
-					break;
-				case 82:
-					setup();
-					break;
-				case 32:
-					pause();
-					break;
+						break;
+					case 82:
+						setup();
+						break;
+					case 32:
+						pause();
+						break;
+					case 88:
+						stupidMode = true;
+						break;
+				}
+			}else{
+				switch(e.keyCode){
+					case 37:
+						xvel -= 1;
+						break;
+					case 38:
+						yvel -= 1;
+						break;
+					case 39:
+						xvel += 1;
+						break;
+					case 40:
+						yvel += 1;
+						break;
+					case 32:
+						pause();
+						break;
+					case 82:
+						setup();
+						break;
+					case 88:
+						stupidMode = false;
+						break;
+				}
 			}
 			canPush = false;
 		}
