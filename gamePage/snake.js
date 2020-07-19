@@ -4,6 +4,8 @@ window.onload = function(){
 		document.addEventListener("keydown", keyPush);
 		setInterval(game, 1000/15);
 		highscore = 0;
+		easyMode = false;
+		edgeBuffer = 0;
 		setup();
 	}
 	function setup(){
@@ -81,8 +83,8 @@ window.onload = function(){
 				lose();
 			}
 			if(px == ax && py == ay){
-				ax = Math.floor(Math.random() * tileCount);
-				ay = Math.floor(Math.random() * tileCount);
+				ax = Math.floor(Math.random() * (tileCount - 2 * edgeBuffer)) + edgeBuffer;
+				ay = Math.floor(Math.random() * (tileCount - 2 * edgeBuffer)) + edgeBuffer;
 				score += 10;
 				tailLen += 1;
 			}
@@ -107,6 +109,7 @@ window.onload = function(){
 	}
 	function lose(){
 		started = false;
+		play = false;
 		ctx.fillStyle = "red";
 		ctx.font = "28px Sans-Serif";
 		if(score > highscore){
@@ -211,5 +214,15 @@ window.onload = function(){
 				play = true;
 				document.getElementById("but").innerHTML = "Pause";
 			}
+		}
+	}
+	function easyModeF(){
+		easyMode = !easyMode;
+		if(easyMode){
+			document.getElementById("mode").innerHTML = "Normal Mode";
+			edgeBuffer = 4;
+		}else{
+			document.getElementById("mode").innerHTML = "Easy Mode";
+			edgeBuffer = 0;
 		}
 	}
