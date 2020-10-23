@@ -156,7 +156,7 @@ class SymbolSet{
 			return str.toUpperCase();
 			case "a":
 			//this modification adds the correct a/an to the string, assumes noun input.
-			if (vowels.includes(str.charAt(0).toLowerCase()) || (vowels.includes(str.charAt(1).toLowerCase()) && str.charAt(1) != "u" && str.charAt(0) == 'h')){
+			if (vowels.includes(str.charAt(0).toLowerCase() && str.charAt(0) != "u") || (vowels.includes(str.charAt(1).toLowerCase()) && str.charAt(1) != "u" && str.charAt(0) == 'h')){
 				return "an " + str;
 			}else{
 				return "a " + str;
