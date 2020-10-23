@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById("cfg").value = '*S - *MaxInsult; *MaxInsult - "<insult>"; *insult - "Max is <meanword.a>." | "Max can get <meanverb>." | "Hey Max, go <phallicverb> a <phallicobject>." | "Max, go and <action> in a <badplace>."; *meanword - "asshole" | "dickhead" | "champion masturbator" | "cocktease" | "rude dude with an attitude" | "weenie"; *meanverb - "fucked" | "shafted" | "defenestrated" | "lovingly caressed" | "vored"; *phallicverb - "suck" | "lick" | "gnaw on" | "gargle"; *phallicobject - "peen" | "dildo" | "eggplant" | "clit" | "ten-foot pole"; *action - "die" | "fall" | "drown" | "suffocate"; *badplace - "hole" | "well" | "anus" | "tar pit";';
                 count = 0;
             }
+        }else{
+            count = 0;
         }
         
     });
