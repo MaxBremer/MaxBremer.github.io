@@ -24,6 +24,7 @@
 	<li>DONT CREATE INFINITE LOOPS OF SYMBOLS. You can. Don't do it.</li>
 	<li>There <b>must</b> be a symbol with the name "S". This will serve as the start symbol for processing, and writing starts at symbol S. </li>
 	<li>All used characters (|"-*&lt;) are forbidden from symbol names, though only " is forbidden from terminals for the obvious reason.</li>
+	<li>Starting a line with a forward slash (/) makes that line a comment, i.e. anything can be written there and it won't be processed. Such lines do still have to end with a semicolon though, and thus semicolons are unfortunately a banned character for comments.</li>
 </ul></p>
 <textarea id="cfg">*S - "I went to &lt;location> with &lt;Max.a> and &lt;someoneElse.a>." | "I saw &lt;Max.a> at &lt;location> &lt;past_time>." | "&lt;someoneElse.a.cap> was &lt;action> at &lt;location> &lt;past_time>.";
 *Max - "cool guy" | "awesome dude" | "lorge man" | "Max";
