@@ -8,7 +8,11 @@ function readInp(){
 	var startSym = SymSet.findSym("S");
 	var sentence = SymSet.writeSymbol(startSym);
 	//console.log(sentence);
-	document.getElementById("output").innerHTML += "<li>" + sentence + "</li>";
+	var output = document.getElementById("output");
+	var item = document.createElement("li");
+	item.className = "list-group-item";
+	item.textContent = sentence;
+	output.appendChild(item);
 }
 
 function weightedChoice(options, chances){

@@ -1,28 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Snake</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser snake game sandbox project by Max Bremer.">
+  <title>Snake | Max Bremer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Merriweather+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/site.css">
 </head>
 <body id="page-top">
-<div class="wrapper">
-	<h2>Snake</h2>
-	<h3>Max Bremer</h3>
-	<p>It's pretty straightforward. It's snake. Arrow keys to control, press r to restart, press space or the button below to pause. I'll add many dumb features to this as we go.<br> For example, press x to toggle... "interesting" mode.</p>
-<canvas id="game" width="400" height="400"></canvas><br>
-<button id="but" type="button" onclick="pause()">Pause</button>
-<input type="color" id="snakeColor" value="#0000ff" onchange="refresh()">
-<input type="color" id="appleColor" value="#ff0000" onchange="refresh()"> <br>
-Background: <input type="color" id="bgCol1" value="#99e600" onchange="refresh()">
-<input type="color" id="bgCol2" value="#75b248" onchange="refresh()"><br>
-<button id="mode" type="button" onclick="easyModeF()">Easy Mode</button>
-</div>
-<script type="text/javascript" src="snake.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <nav class="navbar navbar-expand-lg fixed-top site-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">Max Bremer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../portfolio/index.html">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="../sandboxHome/index.html">Sandbox</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#page-top">Snake</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero snake-hero text-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="hero-card">
+            <p class="lead-label mb-3">Sandbox game</p>
+            <h1 class="display-4 fw-bold">Snake</h1>
+            <hr class="divider">
+            <p class="lead mb-0">It's pretty straightforward. It's snake. Arrow keys to control, press <kbd>r</kbd> to restart, press <kbd>space</kbd> or the button below to pause. I'll add many dumb features to this as we go. For example, press <kbd>x</kbd> to toggle... "interesting" mode.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container">
+      <div class="row g-4 align-items-start justify-content-center">
+        <div class="col-lg-6 text-center">
+          <canvas class="game-canvas" id="game" width="400" height="400"></canvas>
+        </div>
+        <div class="col-lg-5">
+          <section class="control-card p-4">
+            <h2 class="h4">Controls</h2>
+            <p class="text-muted">Customize the colors, pause/resume, or make apples spawn farther from the edge with Easy Mode.</p>
+            <div class="d-grid gap-2 d-sm-flex mb-4">
+              <button id="but" type="button" class="btn btn-primary" onclick="pause()">Pause</button>
+              <button id="mode" type="button" class="btn btn-outline-primary" onclick="easyModeF()">Easy Mode</button>
+            </div>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="snakeColor">Snake</label>
+                <input class="form-control form-control-color color-input" type="color" id="snakeColor" value="#0000ff" onchange="refresh()">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="appleColor">Apple</label>
+                <input class="form-control form-control-color color-input" type="color" id="appleColor" value="#ff0000" onchange="refresh()">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bgCol1">Background center</label>
+                <input class="form-control form-control-color color-input" type="color" id="bgCol1" value="#99e600" onchange="refresh()">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bgCol2">Background edge</label>
+                <input class="form-control form-control-color color-input" type="color" id="bgCol2" value="#75b248" onchange="refresh()">
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer py-4">
+    <div class="container text-center small">© Max Bremer · Snake</div>
+  </footer>
+  <script src="snake.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

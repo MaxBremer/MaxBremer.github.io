@@ -1,0 +1,309 @@
+:root {
+  --site-primary: #f4623a;
+  --site-primary-dark: #d94d2a;
+  --site-ink: #222831;
+  --site-muted: #6c757d;
+  --site-cream: #fff8f3;
+  --site-panel: #ffffff;
+  --site-border: rgba(34, 40, 49, 0.1);
+  --site-shadow: 0 1rem 3rem rgba(34, 40, 49, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(180deg, #fff 0%, var(--site-cream) 100%);
+  color: var(--site-ink);
+  font-family: Merriweather, Georgia, serif;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand,
+.btn,
+.badge,
+.lead-label {
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: var(--site-primary-dark);
+}
+
+a:hover,
+a:focus {
+  color: #b73d20;
+}
+
+.site-navbar {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--site-border);
+  box-shadow: 0 0.25rem 1rem rgba(34, 40, 49, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.site-navbar .navbar-brand {
+  color: var(--site-ink);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.site-navbar .nav-link {
+  color: rgba(34, 40, 49, 0.72);
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+}
+
+.site-navbar .nav-link:hover,
+.site-navbar .nav-link:focus,
+.site-navbar .nav-link.active {
+  color: var(--site-primary-dark);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--site-primary);
+  --bs-btn-border-color: var(--site-primary);
+  --bs-btn-hover-bg: var(--site-primary-dark);
+  --bs-btn-hover-border-color: var(--site-primary-dark);
+  --bs-btn-active-bg: var(--site-primary-dark);
+  --bs-btn-active-border-color: var(--site-primary-dark);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--site-primary-dark);
+  --bs-btn-border-color: var(--site-primary);
+  --bs-btn-hover-bg: var(--site-primary);
+  --bs-btn-hover-border-color: var(--site-primary);
+}
+
+.text-primary {
+  color: var(--site-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--site-primary) !important;
+}
+
+.page-section {
+  padding: 6rem 0;
+}
+
+.hero {
+  position: relative;
+  min-height: 88vh;
+  padding: 8rem 0 5rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(34, 40, 49, 0.78), rgba(244, 98, 58, 0.48)), var(--hero-image, none) center/cover;
+  z-index: -2;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  right: -12rem;
+  bottom: -16rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  z-index: -1;
+}
+
+.home-hero,
+.sandbox-hero,
+.cfg-hero,
+.snake-hero {
+  --hero-image: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 28%);
+}
+
+.portfolio-hero {
+  --hero-image: url("../portfolio/assets/img/bg-masthead.jpg");
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1.5rem;
+  box-shadow: var(--site-shadow);
+  color: var(--site-ink);
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.hero-card.dark {
+  background: rgba(34, 40, 49, 0.65);
+  color: #fff;
+}
+
+.lead-label {
+  color: var(--site-primary-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.divider {
+  width: 4rem;
+  height: 0.2rem;
+  margin: 1.5rem auto;
+  border: 0;
+  border-radius: 999px;
+  background: var(--site-primary);
+  opacity: 1;
+}
+
+.divider.light {
+  background: #fff;
+}
+
+.content-card,
+.project-card,
+.control-card {
+  background: var(--site-panel);
+  border: 1px solid var(--site-border);
+  border-radius: 1rem;
+  box-shadow: 0 0.75rem 2rem rgba(34, 40, 49, 0.08);
+}
+
+.project-card {
+  height: 100%;
+  padding: 2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--site-shadow);
+}
+
+.icon-circle {
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(244, 98, 58, 0.12);
+  color: var(--site-primary-dark);
+  font-size: 1.6rem;
+}
+
+.portfolio-box {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  min-height: 16rem;
+  background: #111;
+}
+
+.portfolio-box img {
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.portfolio-box-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, rgba(34, 40, 49, 0.05), rgba(34, 40, 49, 0.88));
+}
+
+.portfolio-box:hover img,
+.portfolio-box:focus img {
+  transform: scale(1.04);
+  opacity: 0.78;
+}
+
+.project-category {
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-name {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.sandbox-list .list-group-item {
+  border-color: var(--site-border);
+  padding: 1.25rem;
+}
+
+.sandbox-list .badge {
+  background: rgba(244, 98, 58, 0.12);
+  color: var(--site-primary-dark);
+}
+
+.cfg-editor {
+  min-height: 28rem;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92rem;
+}
+
+.output-list {
+  min-height: 8rem;
+}
+
+.game-canvas {
+  width: min(100%, 400px);
+  height: auto;
+  border: 0.75rem solid #fff;
+  border-radius: 1rem;
+  box-shadow: var(--site-shadow);
+  background: #99e600;
+}
+
+.color-input {
+  width: 4rem;
+  height: 2.5rem;
+  padding: 0.2rem;
+}
+
+.site-footer {
+  background: #222831;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .hero {
+    min-height: auto;
+    padding-top: 7rem;
+  }
+
+  .page-section {
+    padding: 4rem 0;
+  }
+}
+
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
