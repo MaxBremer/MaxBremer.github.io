@@ -1,28 +1,17 @@
-//Allow use of tab within textareas, instead of entering next input.
-var textareas = document.getElementsByTagName("textarea");
-var count = textareas.length;
-for(var i=0;i<count;i++){
-    textareas[i].onkeydown = function(e){
-        if(e.keyCode==9 || e.which==9){
-        	console.log("TABBED");
-            e.preventDefault();
-            var s = this.selectionStart;
-            this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
-            this.selectionEnd = s+1; 
-        }
+// Allow tabs inside grammar textareas instead of moving to the next input.
+document.querySelectorAll("textarea").forEach((textarea) => {
+  textarea.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") {
+      return;
     }
-    textareas[i].style.height = "";
-    textareas[i].style.height = textareas[i].scrollHeight + "px";
-    var lines = textareas[i].value.split(/(\r\n|\n|\r)/gm);
-    var max = 3;
-    for (var j = 0; j < lines.length; j++) {
-    	max = Math.max(lines[j].length, max);
-    }
-    textareas[i].style.width = "";
-    console.log(window.innerWidth);
-    textareas[i].style.width = Math.min((max * 8), window.innerWidth) + "px";
-}
 
+    event.preventDefault();
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    textarea.value = `${textarea.value.substring(0, start)}\t${textarea.value.substring(end)}`;
+    textarea.selectionStart = textarea.selectionEnd = start + 1;
+  });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -35,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (charList.indexOf(key) === -1) return;
         if (seq.charAt(count)==key) {
             count += 1;
-            //console.log(count);
             buffer.push(key);
             if (count==seq.length) {
                 document.getElementById("cfg").value = '*S - *MaxInsult; *MaxInsult - "<insult>"; *insult - "Max is <meanword.a>." | "Max can get <meanverb>." | "Hey Max, go <phallicverb> a <phallicobject>." | "Max, go and <action> in a <badplace>."; *meanword - "asshole" | "dickhead" | "champion masturbator" | "cocktease" | "rude dude with an attitude" | "weenie"; *meanverb - "fucked" | "shafted" | "defenestrated" | "lovingly caressed" | "vored"; *phallicverb - "suck" | "lick" | "gnaw on" | "gargle"; *phallicobject - "peen" | "dildo" | "eggplant" | "clit" | "ten-foot pole"; *action - "die" | "fall" | "drown" | "suffocate"; *badplace - "hole" | "well" | "anus" | "tar pit";';
