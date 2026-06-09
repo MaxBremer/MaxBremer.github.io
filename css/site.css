@@ -1,12 +1,12 @@
 :root {
-  --site-primary: #f4623a;
-  --site-primary-dark: #d94d2a;
-  --site-ink: #222831;
-  --site-muted: #6c757d;
-  --site-cream: #fff8f3;
-  --site-panel: #ffffff;
-  --site-border: rgba(34, 40, 49, 0.1);
-  --site-shadow: 0 1rem 3rem rgba(34, 40, 49, 0.12);
+  --site-primary: #2f6f9f;
+  --site-primary-dark: #1f567d;
+  --site-ink: #1f2933;
+  --site-muted: #64748b;
+  --site-cream: #e8eef5;
+  --site-panel: #f8fafc;
+  --site-border: rgba(31, 41, 51, 0.16);
+  --site-shadow: 0 1rem 3rem rgba(15, 23, 42, 0.16);
 }
 
 html {
@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #fff 0%, var(--site-cream) 100%);
+  background: linear-gradient(180deg, #f4f7fb 0%, var(--site-cream) 100%);
   color: var(--site-ink);
   font-family: Merriweather, Georgia, serif;
   line-height: 1.7;
@@ -39,13 +39,13 @@ a {
 
 a:hover,
 a:focus {
-  color: #b73d20;
+  color: #153e5f;
 }
 
 .site-navbar {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(241, 245, 249, 0.95);
   border-bottom: 1px solid var(--site-border);
-  box-shadow: 0 0.25rem 1rem rgba(34, 40, 49, 0.06);
+  box-shadow: 0 0.25rem 1rem rgba(15, 23, 42, 0.09);
   backdrop-filter: blur(10px);
 }
 
@@ -56,7 +56,7 @@ a:focus {
 }
 
 .site-navbar .nav-link {
-  color: rgba(34, 40, 49, 0.72);
+  color: rgba(31, 41, 51, 0.74);
   font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 700;
 }
@@ -91,6 +91,23 @@ a:focus {
   background-color: var(--site-primary) !important;
 }
 
+
+.text-muted {
+  color: var(--site-muted) !important;
+}
+
+.form-control,
+.form-control-color {
+  background-color: #f8fafc;
+  border-color: #b8c6d6;
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border-color: var(--site-primary);
+  box-shadow: 0 0 0 0.25rem rgba(47, 111, 159, 0.18);
+}
+
 .page-section {
   padding: 6rem 0;
 }
@@ -108,7 +125,7 @@ a:focus {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(34, 40, 49, 0.78), rgba(244, 98, 58, 0.48)), var(--hero-image, none) center/cover;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(47, 111, 159, 0.56)), var(--hero-image, none) center/cover;
   z-index: -2;
 }
 
@@ -136,8 +153,8 @@ a:focus {
 }
 
 .hero-card {
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px solid rgba(203, 213, 225, 0.74);
   border-radius: 1.5rem;
   box-shadow: var(--site-shadow);
   color: var(--site-ink);
@@ -145,7 +162,7 @@ a:focus {
 }
 
 .hero-card.dark {
-  background: rgba(34, 40, 49, 0.65);
+  background: rgba(15, 23, 42, 0.72);
   color: #fff;
 }
 
@@ -155,6 +172,41 @@ a:focus {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.section-jump-nav {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(226, 232, 240, 0.26);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.28);
+}
+
+.section-jump-label,
+.section-jump-nav a {
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-jump-label {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.section-jump-nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.section-jump-nav a:hover,
+.section-jump-nav a:focus {
+  color: #bfdbfe;
 }
 
 .divider {
@@ -177,7 +229,7 @@ a:focus {
   background: var(--site-panel);
   border: 1px solid var(--site-border);
   border-radius: 1rem;
-  box-shadow: 0 0.75rem 2rem rgba(34, 40, 49, 0.08);
+  box-shadow: 0 0.75rem 2rem rgba(15, 23, 42, 0.11);
 }
 
 .project-card {
@@ -198,7 +250,7 @@ a:focus {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(244, 98, 58, 0.12);
+  background: rgba(47, 111, 159, 0.14);
   color: var(--site-primary-dark);
   font-size: 1.6rem;
 }
@@ -227,7 +279,7 @@ a:focus {
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.5rem;
-  background: linear-gradient(180deg, rgba(34, 40, 49, 0.05), rgba(34, 40, 49, 0.88));
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.9));
 }
 
 .portfolio-box:hover img,
@@ -255,12 +307,13 @@ a:focus {
 }
 
 .sandbox-list .badge {
-  background: rgba(244, 98, 58, 0.12);
+  background: rgba(47, 111, 159, 0.14);
   color: var(--site-primary-dark);
 }
 
 .cfg-editor {
-  min-height: 28rem;
+  min-height: 36rem;
+  line-height: 1.5;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.92rem;
 }
@@ -272,7 +325,7 @@ a:focus {
 .game-canvas {
   width: min(100%, 400px);
   height: auto;
-  border: 0.75rem solid #fff;
+  border: 0.75rem solid #dbe5ef;
   border-radius: 1rem;
   box-shadow: var(--site-shadow);
   background: #99e600;
@@ -285,7 +338,7 @@ a:focus {
 }
 
 .site-footer {
-  background: #222831;
+  background: #1f2933;
   color: rgba(255, 255, 255, 0.72);
 }
 

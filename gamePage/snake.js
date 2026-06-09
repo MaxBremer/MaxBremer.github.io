@@ -128,6 +128,9 @@ window.onload = function(){
 		ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
 	}
 	function keyPush(e){
+		if([37, 38, 39, 40].includes(e.keyCode)){
+			e.preventDefault();
+		}
 		if(canPush){
 			if(!stupidMode){
 				switch(e.keyCode){
